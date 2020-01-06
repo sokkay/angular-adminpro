@@ -17,6 +17,10 @@ import { SharedModule } from './shared/shared.module';
 //temporal
 import { FormsModule } from '@angular/forms';
 
+//services
+import { ServiceModule } from './services/service.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     APP_ROUTES,
     PagesModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

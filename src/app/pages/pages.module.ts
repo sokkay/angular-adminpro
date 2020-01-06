@@ -16,6 +16,7 @@ import { ChartsModule } from 'ng2-charts';
 
 //temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
     Graficas1Component,
     PagesComponent,
     IncrementadorComponent,
-    GraficoDonaComponent
+    GraficoDonaComponent,
+    AccountSettingsComponent
   ],
   imports: [
     SharedModule,
