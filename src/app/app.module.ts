@@ -15,7 +15,7 @@ import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 
 //temporal
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //services
 import { ServiceModule } from './services/service.module';
@@ -33,6 +33,7 @@ import { ServiceModule } from './services/service.module';
     PagesModule,
     SharedModule,
     FormsModule,
+    ReactiveFormsModule,
     ServiceModule
   ],
   providers: [],
