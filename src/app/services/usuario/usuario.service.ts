@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,13 @@ export class UsuarioService {
 
   constructor(
     public http: HttpClient,
-    public router: Router
-  ) { 
+    public router: Router,
+    public subirArchivoService: SubirArchivoService
+  ) {
     this.cargarStorage();
   }
 
-  logout(){
+  logout() {
     this.usuario = null;
     this.token = '';
 
@@ -42,11 +44,11 @@ export class UsuarioService {
     this.token = token;
   }
 
-  estaLogueado() : boolean{
+  estaLogueado(): boolean {
     return (this.token.length > 5) ? true : false;
   }
 
-  cargarStorage(){
+  cargarStorage() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
@@ -57,18 +59,43 @@ export class UsuarioService {
   }
 
   public crearUsuario(usuario: Usuario) {
-    let url = URL_SERVICIOS + '/usuario';
+    const url = URL_SERVICIOS + '/usuario';
 
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
-        swal("Usuario creado", usuario.email, "success");
+        swal('Usuario creado', usuario.email, 'success');
         return resp.usuario;
       })
     );
   }
 
+  public actualizarUsuario(usuario: Usuario) {
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+    return this.http.put(url, usuario).pipe(
+      map((resp: any) => {
+        const usuarioDB: Usuario = resp.usuario;
+        this.guardarStorage(usuarioDB._id, this.token, usuarioDB);
+        swal('Usuario actualizado', usuario.nombre, 'success');
+        return true;
+      })
+    );
+  }
+
+  cambiarImagen(archivo: File, id: string) {
+    this.subirArchivoService.subirArchivo(archivo, 'usuarios', id)
+      .then((resp: any) => {
+        this.usuario.img = resp.usuario.img;
+        swal('Imagen actualizada', this.usuario.nombre, 'success');
+        this.guardarStorage(id, this.token, this.usuario);
+      })
+      .catch(resp => {
+        console.log(resp);
+      });
+  }
+
   loginGoogle(token: string) {
-    let url = URL_SERVICIOS + '/login/google';
+    const url = URL_SERVICIOS + '/login/google';
 
     return this.http.post(url, { token })
       .pipe(
@@ -87,11 +114,10 @@ export class UsuarioService {
       localStorage.removeItem('email');
     }
 
-    let url = URL_SERVICIOS + '/login';
+    const url = URL_SERVICIOS + '/login';
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
         this.guardarStorage(resp.id, resp.token, resp.usuario);
-
         return true;
       })
     );

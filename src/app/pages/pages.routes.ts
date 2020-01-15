@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -7,8 +7,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/service.index';
+import { ProfileComponent } from './profile/profile.component';
 
-const pagesRoutes : Routes = [
+const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
@@ -19,6 +20,7 @@ const pagesRoutes : Routes = [
             {path: 'graficas1', component: Graficas1Component, data: { titulo: 'Graficas'}},
             {path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'}},
             {path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes del Tema'}},
+            {path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'}},
             {path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJS'}},
             {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
         ]
