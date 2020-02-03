@@ -15,7 +15,7 @@ export class ModalUploadService {
   }
 
   ocultarModal(){
-    this.oculto = 'animated fadeOut';
+    this.oculto = 'animated fadeOut oculto';
     this.tipo = null;
     this.id = null;
   }
