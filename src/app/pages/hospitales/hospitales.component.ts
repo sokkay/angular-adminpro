@@ -3,7 +3,7 @@ import { Hospital } from '../../models/hospital.model';
 import { HospitalService } from 'src/app/services/service.index';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
-declare var swal: any;
+declare const swal: any;
 
 @Component({
   selector: 'app-hospitales',
